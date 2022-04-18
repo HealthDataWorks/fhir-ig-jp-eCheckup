@@ -1,8 +1,0 @@
-canonical: https://healthdataworks.net/hl7-fhir
-fhirVersion: 4.0.1
-FSHOnly: true
-applyExtensionMetadataToRoot: false
-id: jp-eCheckup
-name: JPeCheckup
-status: draft
-version: 0.5.0
