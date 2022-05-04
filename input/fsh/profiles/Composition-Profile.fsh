@@ -6,7 +6,7 @@ Description: "健診結果報告書FHIR documentにentry として格納され�
 * ^meta.versionId = "146"
 * ^meta.lastUpdated = "2021-07-02T06:57:21.704+00:00"
 * ^meta.source = "#Gpf8nQiX6PsvLiPu"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Composition.html"
+* ^url = $Composition-Profile-Url
 * ^version = "0.5.0"
 * ^status = #active
 * ^publisher = "HealthDataWorks"
@@ -17,6 +17,10 @@ Description: "健診結果報告書FHIR documentにentry として格納され�
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "Compositionリソースであることを示す"
+* meta 1..1
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $Composition-Profile-Url (exactly)
 * language = #ja (exactly)
 * language MS
 * language ^short = "日本語を指定する場合、”ja”を指定する。"
@@ -29,17 +33,27 @@ Description: "健診結果報告書FHIR documentにentry として格納され�
 * text.div MS
 * text.div ^example.label = "for xhtml"
 * text.div ^example.valueString = "<div xmlns=\"http://www.w3.org/1999/xhtml\">xxx</div>"
-* extension ..1 MS
-* extension ^short = "健診結果報告書の文書バージョンを表す拡張「composition-clinicaldocument-versionNumber」。"
-* extension.url = "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber" (exactly)
-* extension.url MS
-* extension.url ^short = "拡張を識別するURL。"
-* extension.value[x] 1.. MS
-* extension.value[x] only string
-* extension.value[x] ^short = "文書のバージョン番号を表す文字列。"
-* extension.value[x] ^definition = "拡張「clinicaldocument-versionNumber」を使用する。\n\n本ドキュメントのバージョン番号を指定する。バージョン1.0の場合は記述の省略を認めるが、それ以外のバージョンの場合は記述を必須とする。バージョン毎の指定方法を以下に示す。なお、健診結果報告書仕様では、CDA R2のデータ型の制約からバージョン2.0を\"20\"と表記する必要があったが、本文書では、\"2.0\"と文字列で指定してよい。"
-* extension.value[x] ^example.label = "for string"
-* extension.value[x] ^example.valueString = "1.0"
+* extension ^slicing.discriminator.type = #value
+* extension ^slicing.discriminator.path = "url"
+* extension ^slicing.rules = #open
+* extension contains
+    http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber named 1 0..1 and
+    http://hl7.org/fhir/us/ccda/StructureDefinition/DataEntererExtension named 2 0..1 
+* extension[1] ^short = "健診結果報告書の文書バージョンを表す拡張「composition-clinicaldocument-versionNumber」。"
+* extension[1].url MS
+* extension[1].url ^short = "拡張を識別するURL。"
+* extension[1].value[x] only string
+* extension[1].valueString 1.. MS
+* extension[1].valueString ^short = "文書のバージョン番号を表す文字列。"
+* extension[1].valueString ^definition = "拡張「clinicaldocument-versionNumber」を使用する。\n\n本ドキュメントのバージョン番号を指定する。バージョン1.0の場合は記述の省略を認めるが、それ以外のバージョンの場合は記述を必須とする。バージョン毎の指定方法を以下に示す。なお、健診結果報告書仕様では、CDA R2のデータ型の制約からバージョン2.0を\"20\"と表記する必要があったが、本文書では、\"2.0\"と文字列で指定してよい。"
+* extension[1].valueString ^example.label = "for string"
+* extension[1].valueString ^example.valueString = "1.0"
+* extension[2] ^short = "転記者(データを作成者に代わって転記入力した者)の情報を表す拡張「Data Enterer Extension」。"
+* extension[2].url MS
+* extension[2].url ^short = "拡張を識別するURL。"
+* extension[2].value[x] only Reference(PractitionerRole)
+* extension[2].valueReference 1.. MS
+* extension[2].valueReference ^short = "転記者のPractitionerRoleリソースへの参照。"
 * identifier MS
 * identifier ^short = "このリソースの識別ID。実装に応じた健康診断結果報告書IDを記述する。"
 * identifier ^definition = "実装に応じた健康診断結果報告書IDを記述する。\n\n健康診断結果報告書ID体系OIDとして、施設OIDをルートとする健康診断結果報告書個別ID発行規定OIDを施設ごとに決め、その規定にそった健康診断結果報告書個別IDをvalue要素に記述する方法も考えられる。"
@@ -59,15 +73,15 @@ Description: "健診結果報告書FHIR documentにentry として格納され�
 * type ^short = "Compositionが表す文書の種類。本規格では、コード体系 文書区分コード（ http://jpfhir.jp/eCheckup/CodeSystem/documentType）より、「01:健康診断結果報告書」を指定する。"
 * type.coding 1..1 MS
 * type.coding.system 1.. MS
-* type.coding.system = "http://jpfhir.jp/fhir/eCheckup/CodeSystem/documentType" (exactly)
+* type.coding.system = "http://jpfhir.jp/fhir/Common/CodeSystem/doc-typecodes" (exactly)
 * type.coding.system ^short = "文書区分コードのコード体系を識別するURI。"
 * type.coding.code 1..1 MS
-* type.coding.code = #01 (exactly)
-* type.coding.code ^short = "文書区分コード。”01：健康診断結果報告書”を指定。"
+* type.coding.code = #53576-5 (exactly)
+* type.coding.code ^short = "文書区分コード。”53576-5:検診・健診報告書”を指定。"
 * type.coding.display MS
 * type.coding.display ^short = "文書区分コードの表示名。"
 * type.coding.display ^example.label = "for string"
-* type.coding.display ^example.valueString = "健康診断結果報告書"
+* type.coding.display ^example.valueString = "検診・健診報告書"
 * category 1..1 MS
 * category from $ValueSet-checkupReportCategory.html (required)
 * category ^short = "報告区分を表すコードを設定する。このファイルが作成された目的や作成タイミングなどの情報を格納するために使用される。"
@@ -79,7 +93,7 @@ Description: "健診結果報告書FHIR documentにentry として格納され�
 * category.coding.code 1.. MS
 * category.coding.code ^short = "報告区分コード。"
 * category.coding.code ^example.label = "for code"
-* category.coding.code ^example.valueCode = #01
+* category.coding.code ^example.valueCode = #10
 * category.coding.display MS
 * category.coding.display ^short = "コードの表示名。"
 * category.coding.display ^example.label = "for string"

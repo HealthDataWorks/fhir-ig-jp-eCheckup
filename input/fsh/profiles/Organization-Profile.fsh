@@ -6,7 +6,7 @@ Description: "健康診断結果報告書を作成した施設は、Practitioner
 * ^meta.versionId = "33"
 * ^meta.lastUpdated = "2021-07-02T10:56:03.412+00:00"
 * ^meta.source = "#QvwEcEf35eGwVDlv"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Organization.html"
+* ^url = $Organization-Profile-Url
 * ^version = "0.5.0"
 * ^status = #active
 * ^publisher = "HealthDataWorks"
@@ -17,6 +17,10 @@ Description: "健康診断結果報告書を作成した施設は、Practitioner
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "Organizationリソースであることを示す"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $Organization-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。"
 * text.status = #generated (exactly)

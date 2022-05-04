@@ -8,7 +8,7 @@ Description: """受診者が健診実施時に属した保険者の情報およ�
 * ^meta.versionId = "25"
 * ^meta.lastUpdated = "2021-07-02T10:35:44.467+00:00"
 * ^meta.source = "#UDZ9C4r0RUxTpjtz"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Coverage.html"
+* ^url = $Coverage-Profile-Url
 * ^version = "0.5.0"
 * ^status = #active
 * ^publisher = "HealthDataWorks"
@@ -19,6 +19,10 @@ Description: """受診者が健診実施時に属した保険者の情報およ�
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "Coverageリソースであることを示す"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $Coverage-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。"
 * text.status = #generated (exactly)

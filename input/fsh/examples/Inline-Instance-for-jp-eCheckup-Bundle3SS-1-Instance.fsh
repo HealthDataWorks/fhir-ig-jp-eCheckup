@@ -7,7 +7,7 @@ Usage: #inline
 * identifier.system = "http://jpfhir.jp/fhir/eCheckup/documentIdentifier"
 * identifier.value = "12345"
 * status = #final
-* type = $documentType#01 "健康診断結果報告書"
+* type = $documentType#53576-5 "健康診断結果報告書"
 * category.coding.version = "1"
 * category.coding = urn:oid:2.16.840.1.113883.2.2.1.6.1001#43 "事業者健診"
 * subject = Reference(urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3)

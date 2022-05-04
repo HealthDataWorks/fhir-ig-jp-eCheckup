@@ -5,7 +5,7 @@ Title: "Observationリソース　検査項目パターン情報"
 * ^meta.versionId = "106"
 * ^meta.lastUpdated = "2021-07-02T11:38:28.609+00:00"
 * ^meta.source = "#EbxYT7SLZtyjXzHj"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Observation.html"
+* ^url = $Observation-Profile-Url
 * ^version = "0.5.0"
 * ^publisher = "HealthDataWorks"
 * ^contact[0].name = "実装ガイド作成：小山内 尚、西山 喜樹、能崎 克行"
@@ -15,6 +15,10 @@ Title: "Observationリソース　検査項目パターン情報"
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "Observationリソースであることを示す"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $Observation-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。内容を省略しても構わない。 このデータは人がこのリソースの内容の概略をひと目で把握するためだけに使われるものであり、データ処理対象としてはならない。この内容と以降の構造化されたデータとの内容が不一致の場合には、この要素の内容は無視される。（本分書のすべてのリソースで同様とする）"
 * text.status = #generated (exactly)
@@ -106,6 +110,9 @@ Title: "Observationリソース　検査項目パターン情報"
 * interpretation.coding.display ^short = "表示名。"
 * interpretation.coding.display ^example.label = "for string"
 * interpretation.coding.display ^example.valueString = "Normal"
+* note 0..1 MS
+* note ^short = "自由記載のコメント"
+* note.text 1..1 MS
 * method MS
 * method from XMLobservationCode (required)
 * method ^short = "検査の測定方法コードを表す。"

@@ -9,7 +9,7 @@ name: JPeCheckup
 title: 健康診断結果報告書
 description: この実装ガイドは、HL7 FHIRのリソースに診断結果報告書の情報を設定して利用するためのドキュメントです。&#xA;&#xA;健康診断結果報告書FHIR®記述仕様書案β(2021.3.29版)より作成しています。
 status: draft # draft | active | retired | unknown
-version: 0.5.0
+version: 1.0.2
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
 copyrightYear: 2020+
 releaseLabel: ci-build # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use
@@ -31,7 +31,12 @@ publisher:
 #     uri: http://hl7.org/fhir/us/mcode/ImplementationGuide/hl7.fhir.us.mcode
 #     version: 1.0.0
 #
-#
+dependencies:
+  hl7.fhir.us.ccda:
+    id: ccda
+    uri: http://hl7.org/fhir/us/ccda/
+    version: 1.1.0
+
 # The pages property corresponds to IG.definition.page. SUSHI can
 # auto-generate the page list, but if the author includes pages in
 # this file, it is assumed that the author will fully manage the

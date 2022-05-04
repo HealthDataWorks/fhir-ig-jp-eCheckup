@@ -25,4 +25,4 @@ Description: "被保険者証番号を格納する拡張"
 * value[x] only string
 * value[x] ^short = "被保険者証番号。記録形式は「オンライン又は光ディスク等による請求に係る記録条件仕様（医科用）」に従う。"
 * value[x] ^example.label = "for string"
-* value[x] ^example.valueString = "６７８９０"
+* value[x] ^example.valueString = "67890"

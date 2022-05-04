@@ -5,7 +5,7 @@ Title: "PractitionerRoleリソース　文書作成者役割情報"
 * ^meta.versionId = "14"
 * ^meta.lastUpdated = "2021-07-01T13:04:19.986+00:00"
 * ^meta.source = "#8A4Z8vPXqFVwr7r4"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-PractitionerRole.html"
+* ^url = $PractitionerRole-Profile-Url
 * ^version = "0.5.0"
 * ^status = #active
 * ^publisher = "HealthDataWorks"
@@ -16,6 +16,10 @@ Title: "PractitionerRoleリソース　文書作成者役割情報"
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "PractitionerRoleリソースであることを示す"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $PractitionerRole-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。"
 * text.status = #generated (exactly)

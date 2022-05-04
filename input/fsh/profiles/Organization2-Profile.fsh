@@ -6,7 +6,7 @@ Description: "保険者は、Coverageリソースのpayorから参照されるOr
 * ^meta.versionId = "23"
 * ^meta.lastUpdated = "2021-07-02T10:56:18.951+00:00"
 * ^meta.source = "#OVy6f9nWUfOXXDDn"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Organization2.html"
+* ^url = $Organization2-Profile-Url
 * ^version = "0.5.0"
 * ^status = #active
 * ^publisher = "HealthDataWorks"
@@ -17,6 +17,10 @@ Description: "保険者は、Coverageリソースのpayorから参照されるOr
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "Organizationリソースであることを示す"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $Organization2-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。"
 * text.status = #generated (exactly)
