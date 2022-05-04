@@ -5,7 +5,7 @@ Title: "DiagnosticReportリソース　検査報告書情報"
 * ^meta.versionId = "29"
 * ^meta.lastUpdated = "2021-07-02T10:53:58.125+00:00"
 * ^meta.source = "#I8r46qRxVFdRE6vN"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-DiagnosticReport.html"
+* ^url = $DiagnosticReport-Profile-Url 
 * ^version = "0.5.0"
 * ^status = #active
 * ^publisher = "HealthDataWorks"
@@ -16,6 +16,10 @@ Title: "DiagnosticReportリソース　検査報告書情報"
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "DiagnosticReportリソースであることを示す"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $DiagnosticReport-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。内容を省略しても構わない。このデータは人がこのリソースの内容の概略をひと目で把握するためだけに使われるものであり、データ処理対象としてはならない。 この内容と以降の構造化されたデータとの内容が不一致の場合には、この要素の内容は無視される。（本文書のすべてのリソースで同様とする）"
 * text.status = #generated (exactly)

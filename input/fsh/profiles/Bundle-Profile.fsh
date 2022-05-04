@@ -6,7 +6,7 @@ Description: "管理的な情報を格納する要素として identifier, times
 * ^meta.versionId = "130"
 * ^meta.lastUpdated = "2021-07-02T10:34:19.038+00:00"
 * ^meta.source = "#8n2mYCvSukPK9tb4"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Bundle.html"
+* ^url = $Bundle-Profile-Url
 * ^version = "0.5.0"
 * ^publisher = "HealthDataWorks"
 * ^contact[0].name = "実装ガイド作成：小山内 尚、西山 喜樹、能崎 克行"
@@ -16,11 +16,10 @@ Description: "管理的な情報を格納する要素として identifier, times
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "Bundleリソースであることを示す"
-* meta 1.. MS
+* meta 1..1 MS
 * meta.profile 1..1 MS
-* meta.profile ^short = "本文書のプロファイルを識別するURLを指定する。値は例示である。今後決定されるURLを指定すること。"
-* meta.profile ^example.label = "for canonical"
-* meta.profile ^example.valueString = "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/eCheckup-Bundle/1.0"
+* meta.profile ^short = "本文書のプロファイルを識別するURLを指定する。"
+* meta.profile = $Bundle-Profile-Url (exactly)
 * type = #document (exactly)
 * type MS
 * type ^short = "Bundleリソースがドキュメントタイプであることをしめす。"
@@ -39,13 +38,16 @@ Description: "管理的な情報を格納する要素として identifier, times
     4 1..1 MS and
     5 1..1 MS and
     6 1..1 MS and
-    7 ..1 MS and
-    8 ..1 MS and
+    7 0..1 MS and
+    8 0..1 MS and
     9 0..* MS and
     10 0..* MS and
     11 0..* MS and
     12 0..* MS and
-    13 0..* MS
+    13 0..* MS and
+    14 0..1 MS and
+    15 0..1 MS and
+    16 0..1 MS
 * entry[1] ^short = "構成リソース一覧目次に相当。"
 * entry[=].fullUrl 1.. MS
 * entry[=].fullUrl only uri
@@ -149,3 +151,27 @@ Description: "管理的な情報を格納する要素として identifier, times
 * entry[=].resource 1.. MS
 * entry[=].resource only DocumentReference
 * entry[=].resource ^short = "添付文書情報"
+* entry[+] ^short = "転記者役割情報エントリ"
+* entry[=].fullUrl 1.. MS
+* entry[=].fullUrl ^short = "エントリリスト内のリソースを一意に識別するためのUUID。"
+* entry[=].fullUrl ^example.label = "for uri"
+* entry[=].fullUrl ^example.valueUri = "urn:uuid:5c9f9f7f-e546-04c2-6888-a9e0b24e5723"
+* entry[=].resource 1.. MS
+* entry[=].resource only PractitionerRole
+* entry[=].resource ^short = "転記者役割情報"
+* entry[+] ^short = "転記者所属組織情報エントリ"
+* entry[=].fullUrl 1.. MS
+* entry[=].fullUrl ^short = "エントリリスト内のリソースを一意に識別するためのUUID。"
+* entry[=].fullUrl ^example.label = "for uri"
+* entry[=].fullUrl ^example.valueUri = "urn:uuid:5c9f9f7f-e546-04c2-6888-a9e0b24e5721"
+* entry[=].resource 1.. MS
+* entry[=].resource only Organization
+* entry[=].resource ^short = "転記者所属組織情報"
+* entry[+] ^short = "転記者情報エントリ"
+* entry[=].fullUrl 1.. MS
+* entry[=].fullUrl ^short = "エントリリスト内のリソースを一意に識別するためのUUID。"
+* entry[=].fullUrl ^example.label = "for uri"
+* entry[=].fullUrl ^example.valueUri = "urn:uuid:2d5a292d-169a-5cc4-0e10-7a1c0d3fcb2c"
+* entry[=].resource 1.. MS
+* entry[=].resource only Practitioner
+* entry[=].resource ^short = "転記者情報"

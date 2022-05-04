@@ -6,7 +6,7 @@ Description: "健診実施情報として、実施した健診の種別や健診
 * ^meta.versionId = "26"
 * ^meta.lastUpdated = "2021-07-02T10:36:57.174+00:00"
 * ^meta.source = "#GE2GgQAtrXQyW6Y8"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Encounter.html"
+* ^url = $Encounter-Profile-Url
 * ^version = "0.5.0"
 * ^status = #active
 * ^publisher = "HealthDataWorks"
@@ -17,6 +17,10 @@ Description: "健診実施情報として、実施した健診の種別や健診
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "Encounterリソースであることを示す"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $Encounter-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。"
 * text.status = #generated (exactly)
@@ -41,17 +45,34 @@ Description: "健診実施情報として、実施した健診の種別や健診
 * serviceType 1.. MS
 * serviceType ^short = "健診プログラムサービスコード。ヘッダー部の健診管理情報における報告区分コードは、本ファイルを作成し提出する事由区分の意味で使用するのに対して、この健診プログラムサービスコードは、健診実施時にどのような区分として実施されたかを示す。"
 * serviceType.coding 1..1 MS
-* serviceType.coding.system 1.. MS
-* serviceType.coding.system = "urn:oid:1.2.392.200119.6.1002" (exactly)
-* serviceType.coding.system ^short = "健診プログラムサービスコードのコード体系を表すOID。"
-* serviceType.coding.code 1.. MS
-* serviceType.coding.code ^short = "健診プログラムサービスコード。"
-* serviceType.coding.code ^example.label = "for code"
-* serviceType.coding.code ^example.valueCode = #010
-* serviceType.coding.display MS
-* serviceType.coding.display ^short = "健診プログラムサービスコードの表示名。"
-* serviceType.coding.display ^example.label = "for string"
-* serviceType.coding.display ^example.valueString = "特定健診"
+* serviceType.coding ^slicing.discriminator[0].type = #value
+* serviceType.coding ^slicing.discriminator[=].path = "system"
+* serviceType.coding ^slicing.rules = #closed
+* serviceType.coding contains 
+    1 0.. MS and
+    2 0.. MS
+* serviceType.coding[1].system 1.. MS
+* serviceType.coding[1].system = "http://jpfhir.jp/fhir/eCheckup/CodeSystem/checkup-programService-code" (exactly)
+* serviceType.coding[1].system ^short = "健診プログラムサービスコードのコード体系を表すURI。固定値。"
+* serviceType.coding[1].code 1.. MS
+* serviceType.coding[1].code ^short = "健診プログラムサービスコード。"
+* serviceType.coding[1].code ^example.label = "for code"
+* serviceType.coding[1].code ^example.valueCode = #010
+* serviceType.coding[1].display MS
+* serviceType.coding[1].display ^short = "健診プログラムサービスコードの表示名。"
+* serviceType.coding[1].display ^example.label = "for string"
+* serviceType.coding[1].display ^example.valueString = "特定健診"
+* serviceType.coding[2].system 1.. MS
+* serviceType.coding[2].system = "urn:oid:1.2.392.200119.6.1002" (exactly)
+* serviceType.coding[2].system ^short = "特定健診制度のコード体系を表すOID。"
+* serviceType.coding[2].code 1.. MS
+* serviceType.coding[2].code ^short = "健診プログラムサービスコード。"
+* serviceType.coding[2].code ^example.label = "for code"
+* serviceType.coding[2].code ^example.valueCode = #010
+* serviceType.coding[2].display MS
+* serviceType.coding[2].display ^short = "健診プログラムサービスコードの表示名。"
+* serviceType.coding[2].display ^example.label = "for string"
+* serviceType.coding[2].display ^example.valueString = "特定健診"
 * period 1.. MS
 * period ^short = "健診の受診日。特定健診など1日で実施される健診ではperiod型のstart要素とend要素には同一の日付を記録する。"
 * period.start 1.. MS

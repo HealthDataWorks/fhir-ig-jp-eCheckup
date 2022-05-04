@@ -5,7 +5,7 @@ Title: "Specimenリソース　検体情報"
 * ^meta.versionId = "14"
 * ^meta.lastUpdated = "2021-07-01T13:07:04.863+00:00"
 * ^meta.source = "#OEB4gPGyvP1RTo7T"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Specimen.html"
+* ^url = $Specimen-Profile-Url
 * ^version = "0.5.0"
 * ^status = #active
 * ^publisher = "HealthDataWorks"
@@ -16,6 +16,10 @@ Title: "Specimenリソース　検体情報"
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "Specimenリソースであることを示す"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $Specimen-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。内容を省略しても構わない。このデータは人がこのリソースの内容の概略をひと目で把握するためだけに使われるものであり、データ処理対象としてはならない。 この内容と以降の構造化されたデータとの内容が不一致の場合には、この要素の内容は無視される。（本文書のすべてのリソースで同様とする）"
 * text.status = #generated (exactly)
@@ -28,7 +32,7 @@ Title: "Specimenリソース　検体情報"
 * type ^short = "検体の材料コード。JLAC10 材料コードを指定する。"
 * type.coding ..1 MS
 * type.coding.system 1.. MS
-* type.coding.system = "http://jpfhir.jp/eCheckup/CodeSystem/JLAC10-Specimen" (exactly)
+* type.coding.system = "http://jpfhir.jp/fhir/eCheckup/CodeSystem/jlac10-specimen-codes" (exactly)
 * type.coding.system ^short = "JLAC10 材料コードを識別するURL。"
 * type.coding.code 1.. MS
 * type.coding.code ^short = "材料コード。"
@@ -38,3 +42,6 @@ Title: "Specimenリソース　検体情報"
 * type.coding.display ^short = "材料コードの表示名。"
 * type.coding.display ^example.label = "for string"
 * type.coding.display ^example.valueString = "血清"
+* note MS
+* note.text 1..1 MS
+* note.text ^short = "自由記載の検体材料コメント"

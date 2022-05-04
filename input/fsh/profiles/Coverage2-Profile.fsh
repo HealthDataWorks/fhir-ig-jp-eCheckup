@@ -6,7 +6,7 @@ Description: "保険証情報を記録する。"
 * ^meta.versionId = "51"
 * ^meta.lastUpdated = "2021-07-02T10:36:14.696+00:00"
 * ^meta.source = "#43Q5bmtJmS57BY10"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Coverage2.html"
+* ^url = $Coverage2-Profile-Url
 * ^version = "0.5.0"
 * ^status = #active
 * ^publisher = "HealthDataWorks"
@@ -16,6 +16,10 @@ Description: "保険証情報を記録する。"
 * ^contact[+].name = "仕様策定メンバー：厚生労働科学特別研究事業 診療情報提供書, 電子処方箋等の電子化医療文書の相互運用性確保のための標準規格の開発研究 研究班"
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $Coverage2-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。"
 * text.status = #generated (exactly)
@@ -30,9 +34,11 @@ Description: "保険証情報を記録する。"
 * extension ^slicing.rules = #open
 * extension contains
     InsuredPersonSymbol named 1 ..1 MS and
-    InsuredPersonNumber named 2 ..1 MS
+    InsuredPersonNumber named 2 ..1 MS and
+    InsuredPersonNumber named 3 ..1 MS
 * extension[1] ^short = "被保険者証記号を表す拡張「InsuredPersonSymbol」。保険種別が「1：医保」、「2：国保」の場合に記録する。被保険者証記号がない場合は、本拡張要素自体出現しない。"
-* extension[+] ^short = "被保険者証番号を表す拡張「InsuredPersonNumber」。保険種別が「1：医保」、「2：国保」、「7：後期高齢者」の場合に記録する。それ以外の場合は、本拡張要素自体出現しない。"
+* extension[2] ^short = "被保険者証番号を表す拡張「InsuredPersonNumber」。保険種別が「1：医保」、「2：国保」、「7：後期高齢者」の場合に記録する。それ以外の場合は、本拡張要素自体出現しない。"
+* extension[3] ^short = "被保険者証番号の枝番を表す拡張「InsuredPersonSubNumber」。"
 * status = #active (exactly)
 * status MS
 * status ^short = "処方箋発行時に真に有効な保険かどうかは意味しない。"

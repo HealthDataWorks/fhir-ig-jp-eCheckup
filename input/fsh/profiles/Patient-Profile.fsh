@@ -6,7 +6,7 @@ Description: "受診者情報はPatientリソースで記述する。必須（1.
 * ^meta.versionId = "135"
 * ^meta.lastUpdated = "2021-07-01T13:02:20.509+00:00"
 * ^meta.source = "#FzQFBAaQ8ezew0cZ"
-* ^url = "https://igs.healthdataworks.net/jp-eCheckup/StructureDefinition-jp-eCheckup-Patient.html"
+* ^url = $Patient-Profile-Url
 * ^version = "0.5.0"
 * ^publisher = "HealthDataWorks"
 * ^contact[0].name = "実装ガイド作成：小山内 尚、西山 喜樹、能崎 克行"
@@ -16,6 +16,10 @@ Description: "受診者情報はPatientリソースで記述する。必須（1.
 * ^contact[=].telecom.system = #url
 * ^contact[=].telecom.value = "https://std.jpfhir.jp/"
 * . ^short = "Patientリソースであることを示す"
+* meta 1..1 MS
+* meta.profile 1..1 MS
+* meta.profile ^short = "本リソースのプロファイルを識別するURLを指定する。"
+* meta.profile = $Patient-Profile-Url (exactly)
 * text MS
 * text ^short = "本リソースをテキストで表現したものを入れてもよい。内容を省略しても構わない。 このデータは人がこのリソースの内容の概略をひと目で把握するためだけに使われるものであり、データ処理対象としてはならない。この内容と以降の構造化されたデータとの内容が不一致の場合には、この要素の内容は無視される。（本文書のすべてのリソースで同様とする）"
 * text.status = #generated (exactly)
@@ -29,6 +33,10 @@ Description: "受診者情報はPatientリソースで記述する。必須（1.
 * identifier ^definition = "健診実施機関受診者整理ID、所属機関受診者IDなど複数のIDの記述必要な場合、それぞれ医療機関等の識別とともにidentifier要素で記述する。本IDは複数件、目的毎に記述可能である。\n\n例えば、健診実施機関における受診者整理番号を記述するためには、健診実施機関番号を含む健診実施機関OIDをsystem要素に指定し、value要素に受診者整理番号を記述する。\n\n健診結果報告書規格では、保険者番号や被保険者証記号・番号も受診者IDとして記載していたが、本規格では、保険情報を表すCoverage要素、及び、保険者を表すOrganization要素にて表現することに注意する。"
 * identifier.system 1.. MS
 * identifier.value 1.. MS
+* identifier ^short = "社員番号や健診実施機関受診者整理番号。"
+* identifier.system ^short = "末尾の 1[保険医療機関コード(10 桁)]は、保険医療機関コード(10桁)の先頭に1をつけた11桁とした文字列。"
+* identifier.system ^example.label = "for uri"
+* identifier.system ^example.valueUri = "urn:oid:1.2.392.200119.6.102.19999999999"
 * name ^slicing.discriminator.type = #value
 * name ^slicing.discriminator.path = "extension.valueCode"
 * name ^slicing.rules = #open
